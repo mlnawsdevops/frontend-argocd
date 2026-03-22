@@ -1,0 +1,29 @@
+apiVersion: argoproj.io/v1aplha1
+kind: Application
+metadata:
+  name: frontend
+  namespace: argocd
+  annotations:
+    argocd.argoproj.io/sync-wave: "2"
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/mlnawsdevops/frontend-argocd.git
+    targetRevision: main
+    path: .
+    helm:
+      releaseName: frontend
+      valueFiles:
+        - values.yaml
+  destination:
+    server: https://kubernetesdefault.svc
+    namespace: expense
+  syncPolicy:
+    automated:
+      Prune: true
+      selfHeal: true
+  syncOptions:
+    - CreateNamespace=true
+    - ApplyOutOfSyncOnly=true
+    - ServerSideApply=true
+    - PruneLast=true
