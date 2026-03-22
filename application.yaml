@@ -20,7 +20,7 @@ spec:
     namespace: expense
   syncPolicy:
     automated:
-      Prune: true
+      prune: true
       selfHeal: true
     syncOptions:
       - CreateNamespace=true
