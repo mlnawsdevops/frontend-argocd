@@ -10,4 +10,10 @@ spec:
     name: frontend
   minReplicas: 2
   maxReplicas: 10
-  averageUtilization: {{ .Values.hpa.cpuUtilization }}
+  metrics:
+    - type: Resource
+      resource:
+        name: cpu
+        target:
+          type: Utilization
+          averageUtilization: {{ .Values.hpa.cpuUtilization }}
