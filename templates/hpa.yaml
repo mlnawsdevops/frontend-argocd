@@ -8,7 +8,7 @@ spec:
     apiVersion: apps/v1
     kind: Deployment
     name: frontend
-  minReplicas: 3
+  minReplicas: 4
   maxReplicas: 10
   metrics:
     - type: Resource
@@ -17,16 +17,16 @@ spec:
         target:
           type: Utilization
           averageUtilization: {{ .Values.hpa.cpuUtilization }}
-  behavior:
-    scaleDown:
-      stabilizationWindowSeconds: 20   # wait 60s before scaling down
-      policies:
-        - type: Pods
-          value: 1                     # remove 1 pod at a time
-          periodSeconds: 60            # every 60 seconds
-    scaleUp:
-      stabilizationWindowSeconds: 0    # scale up immediately
-      policies:
-        - type: Pods
-          value: 2                     # add 2 pods at a time
-          periodSeconds: 30            # every 30 seconds
+  # behavior:
+  #   scaleDown:
+  #     stabilizationWindowSeconds: 20   # wait 60s before scaling down
+  #     policies:
+  #       - type: Pods
+  #         value: 1                     # remove 1 pod at a time
+  #         periodSeconds: 60            # every 60 seconds
+  #   scaleUp:
+  #     stabilizationWindowSeconds: 0    # scale up immediately
+  #     policies:
+  #       - type: Pods
+  #         value: 2                     # add 2 pods at a time
+  #         periodSeconds: 30            # every 30 seconds
